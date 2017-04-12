@@ -26,7 +26,6 @@ WiFiClient client;
 //initialize for Blynk
 char auth[] = "<your Blynk key here>";
 
-
 //Define Variables we'll be connecting to (PID)
 double Setpoint, Input, Output;
 
@@ -37,17 +36,14 @@ double consKp=4, consKi=0.2, consKd=1;
 //Specify the links and initial tuning parameters
 PID myPID(&Input, &Output, &Setpoint, consKp, consKi, consKd, DIRECT);
 
-
 //initialize the fan controlling PWM pin and clock speed
 int fanControlpin = D0;
-int fanSpeed = 400; // value between 0-1020
+int fanSpeed = 400; // value between 15-1000
 int minSpeed= 15;
 int PWMfreq=30000;
 
-bool E_StillCooking=true;  // when this gets set to false, the fan turns off completely and stays off
+bool StillCooking=true;  // when this gets set to false, the fan turns off completely and stays off
 
-//initialize target/pull temp setting knobs
-// https://github.com/JChristensen/Thermocouple
 // initialize for thermocouples   http://www.14core.com/wiring-thermocouple-max6675-on-esp8266-12e-nodemcu/
 int const thermoSOpin = D6; // pin D6  *MISO*
 int const thermoSCKpin = D5;  // pin D5 *CLK*
@@ -61,7 +57,8 @@ MAX6675 probe_A_Thermocouple(thermoSCKpin, probe_A_CSpin, thermoSOpin);
 MAX6675 probe_B_Thermocouple(thermoSCKpin, probe_B_CSpin, thermoSOpin);
 MAX6675 probe_C_Thermocouple(thermoSCKpin, probe_C_CSpin, thermoSOpin);
 MAX6675 probe_D_Thermocouple(thermoSCKpin, probe_D_CSpin, thermoSOpin);
-MAX6675 probe_E_Thermocouple(thermoSCKpin, probe_E_CSpin, thermoSOpin);  
+MAX6675 probe_E_Thermocouple(thermoSCKpin, probe_E_CSpin, thermoSOpin); 
+ 
 int targetTemp=125;
 int pullTemp=95;
 int tempBelowTarget=30;
@@ -70,14 +67,12 @@ float probe_B=25;
 float probe_C=25;
 float probe_D=25;
 float probe_E=25;
-
 float tempWeightedAvg=25;
 float probe_A_Last=25;
 float probe_B_Last=25;
 float probe_C_Last=25;
 float probe_D_Last=25;
 float probe_E_Last=25;
-
 float tempWeightedAvgLast= 25;
 
 BLYNK_WRITE(V0) {   //pulls data from Blynk app for target temp
@@ -90,16 +85,16 @@ BLYNK_WRITE(V1) { //pulls data from Blynk app for pull temp
   pullTemp = pullTempBlynk;
   Serial.printf("New pull temperature = %d\n",pullTemp);
 }
-BLYNK_READ(V2){ //sends Blynk app the data for 
-  Blynk.virtualWrite(V2, tempWeightedAvgLast);
+BLYNK_READ(V2){ //sends Blynk app the data for the fan speed
+  Blynk.virtualWrite(V2, (int)(fanSpeed/10));
 }
 BLYNK_READ(V3){
-  Blynk.virtualWrite(V3, probe_E_Last);
+  Blynk.virtualWrite(V3, tempBelowTarget);
 }
-BLYNK_READ(V4){ //sends Blynk app the data for the food probe
+BLYNK_READ(V4){ //sends Blynk app the data for the three sensors
   Blynk.virtualWrite(V4, tempWeightedAvgLast);
 }
-BLYNK_READ(V5){
+BLYNK_READ(V5){ //sends Blynk app the data for the food probe
   Blynk.virtualWrite(V5, probe_E_Last);
 }
 
@@ -133,12 +128,13 @@ void setup() {
 }
   
 void loop() {
-  if (E_StillCooking){
+  if (StillCooking){
     timer.run();
     Blynk.run();
     delay(500); 
   } else {
-    delay(60000);
+    delay(5000);
+    if(pullTemp==130){StillCooking=true;}
     timer.run();
     Blynk.run();
   } 
@@ -180,7 +176,7 @@ void postToThingspeak(){
 }
 
 void fanController(){
- if (tempBelowTarget > 1){  // check if the meat is almost done
+    if (tempBelowTarget > 1){  // check if the meat is almost done
         Input = tempWeightedAvgLast;
         Setpoint = targetTemp;
         double gap = Setpoint-Input; // average temp distance away from target temperature
@@ -191,22 +187,23 @@ void fanController(){
         } else if(gap > 0 && gap<=10) {  //we're close to setpoint, use conservative tuning parameters
           myPID.SetTunings(consKp, consKi, consKd);
           myPID.Compute();
-          fanSpeed=  map(Output, 0, 255, minSpeed, 1020);
+          fanSpeed=  map(Output, 0, 255, minSpeed, 1000);
+          if(fanSpeed>1000){fanSpeed=1000;}
           analogWrite(fanControlpin, fanSpeed);
-          Serial.printf("** Turned fan on with speed = %d%.\n",(int)(fanSpeed/10.2));
+          Serial.printf("** Turned fan on with speed = %d%.\n",(int)(fanSpeed/10));
         } else {//we're far from setpoint, use aggressive tuning parameters
            myPID.SetTunings(aggKp, aggKi, aggKd);
            myPID.Compute();
            fanSpeed=  map(Output, 0, 255, minSpeed, 1000);
+           if(fanSpeed>1000){fanSpeed=1000;}
            analogWrite(fanControlpin, fanSpeed);
            Serial.printf("** Turned fan on with speed = %d%.\n",(int)(fanSpeed/10));
-        }
-      
-  }else {  // if the meat is at the pull temp, turn off fan, and notify that the food is done.
+        } 
+   } else {  // if the meat is at the pull temp, turn off fan, and notify that the food is done.
      fanSpeed=minSpeed;
      analogWrite(fanControlpin, fanSpeed);
      Serial.println("Turned fan off.");
-     E_StillCooking=false;
+     StillCooking=false;
      Serial.println("#### Finished! Time to pull :-D  ####");
   }
 }
@@ -221,12 +218,8 @@ void readTempSensors(){
    probe_D=probe_D_Thermocouple.readCelsius();
       delay(100);
    probe_E=probe_E_Thermocouple.readCelsius(); 
-
-   Serial.printf("pull\t|target\t|A\t|B\t|C\t|D\t|E\n%d\t|%d\t|%d\t|%d\t|%d\t|%d\t|%d\n",(int)pullTemp,(int)targetTemp,(int)probe_A_Last,(int)probe_B_Last,(int)probe_C_Last,(int)probe_D_Last,(int)probe_E_Last);
-
-   
+      
     tempWeightedAvg=(probe_A+probe_B)/2;
-
     probe_A_Last=(2*probe_A_Last+probe_A)/3;
     probe_B_Last=(2*probe_B_Last+probe_B)/3;
     probe_C_Last=(2*probe_C_Last+probe_C)/3;
@@ -234,7 +227,7 @@ void readTempSensors(){
     probe_E_Last=(2*probe_E_Last+probe_E)/3;
     tempWeightedAvgLast=(2*tempWeightedAvgLast+tempWeightedAvg)/3;
     tempBelowTarget=pullTemp-probe_E_Last ;
-
+    Serial.printf("pull\t|target\t|A\t|B\t|C\t|D\t|E\n%d\t|%d\t|%d\t|%d\t|%d\t|%d\t|%d\n",(int)pullTemp,(int)targetTemp,(int)probe_A_Last,(int)probe_B_Last,(int)probe_C_Last,(int)probe_D_Last,(int)probe_E_Last);
 }
 
 
