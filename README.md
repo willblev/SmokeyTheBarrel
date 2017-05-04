@@ -1,5 +1,7 @@
 # UDS_ATC
 Automatic temperature controller (ATC) for an ugly drum smoker (UDS)
+![alt text](https://github.com/willblev/UDS_ATC/blob/master/img/UDS.jpg "Ugly Drum Smoker")
+
 
 This is an automated smoker (controllable via the Blynk smartphone app) which uses an ESP8266 to measure 5 k-type thermocouple temperature probes, and controls a 12v DC blower fan, thereby regulating the temperature.
 
@@ -32,3 +34,9 @@ See some images of the project [here](https://trello.com/c/GKH84JZ9/7-uds-ugly-d
 - 1x 12V power supply
 - 1x 12V -> 3.3V DC-DC step down power regulator
 - 1x waterproof project box
+
+![alt text](https://github.com/willblev/UDS_ATC/blob/master/img/atc.jpg "Automatic Temperature Controller")
+
+![alt text](https://github.com/willblev/UDS_ATC/blob/master/img/atc_inside.jpg "ATC inside")
+
+
