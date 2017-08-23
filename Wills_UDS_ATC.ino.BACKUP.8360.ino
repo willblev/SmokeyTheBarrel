@@ -17,14 +17,24 @@
 
 //initialize for thingspeak and wifi
 SimpleTimer timer;  //Starts timer to run the thingspeak update every x milliseconds
+<<<<<<< HEAD
 String apiKey = "<your Thingspeak API key here>";
 char ssid[] = "<your wifi SSID here>";
 char password[] = "<your wifi password here>";
+=======
+String apiKey = "";
+char ssid[] = "";
+char password[] = "";
+>>>>>>> f7ba0ff... Update Wills_UDS_ATC.ino
 char* server = "api.thingspeak.com";
 WiFiClient client;
 
 //initialize for Blynk
+<<<<<<< HEAD
 char auth[] = "<your Blynk key here>";
+=======
+char auth[] = "";
+>>>>>>> 1a13a32... Update Wills_UDS_ATC.ino
 
 //Define Variables we'll be connecting to (PID)
 double Setpoint, Input, Output;

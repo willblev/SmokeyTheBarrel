@@ -8,30 +8,35 @@
  *  Code by Will Blevins. Feel free to reuse and redistribute the code however you like.
  */
 
+#include <ESP8266WiFi.h> 
+#include <ESP8266mDNS.h> //OTA
+#include <WiFiUdp.h> //OTA
+#include <ArduinoOTA.h> //OTA
+
 #include <SimpleTimer.h>
-#include <ESP8266WiFi.h>
 #include <BlynkSimpleEsp8266.h>
 #define BLYNK_PRINT Serial    // Comment this out to disable prints and save space
 #include "max6675.h"
 #include <SPI.h>
+#include <PID_v1.h>
 
 //initialize for thingspeak and wifi
 SimpleTimer timer;  //Starts timer to run the thingspeak update every x milliseconds
-String apiKey = "<your Thingspeak API key here>";
-char ssid[] = "<your wifi SSID here>";
-char password[] = "<your wifi password here>";
+String apiKey = "";
+char ssid[] = "";
+char password[] = "";
 char* server = "api.thingspeak.com";
 WiFiClient client;
 
 //initialize for Blynk
-char auth[] = "<your Blynk key here>";
+char auth[] = "ffb3070d1e014da2ae85ed207c61472d";
 
 //Define Variables we'll be connecting to (PID)
 double Setpoint, Input, Output;
 
 //Define the aggressive and conservative Tuning Parameters (PID)
-double aggKp=8, aggKi=0.4, aggKd=2;
-double consKp=4, consKi=0.2, consKd=1;
+double aggKp=8, aggKi=0.2, aggKd=1;
+double consKp=2, consKi=0.1, consKd=.5;
 
 //Specify the links and initial tuning parameters
 PID myPID(&Input, &Output, &Setpoint, consKp, consKi, consKd, DIRECT);
@@ -102,7 +107,6 @@ BLYNK_READ(V5){ //sends Blynk app the data for the food probe
 void setup() {                
   Serial.begin(9600);
   delay(10);
-  
  //configure the fan controller 
   pinMode(fanControlpin,OUTPUT);
   analogWriteFreq(PWMfreq);
@@ -116,6 +120,8 @@ void setup() {
     Serial.print(".");   
   }
     Serial.printf("\n\nWiFi connected\n\n");
+    //start OTA
+    ArduinoOTA.begin(); //OTA
 
 //PID
   Input = tempWeightedAvgLast;
@@ -131,12 +137,15 @@ void loop() {
   if (StillCooking){
     timer.run();
     Blynk.run();
+    ArduinoOTA.handle(); //OTA
     delay(500); 
   } else {
     delay(5000);
     if(pullTemp==130){StillCooking=true;}
     timer.run();
     Blynk.run();
+    ArduinoOTA.handle(); //OTA
+
   } 
 }
 
@@ -190,14 +199,14 @@ void fanController(){
           fanSpeed=  map(Output, 0, 255, minSpeed, 1000);
           if(fanSpeed>1000){fanSpeed=1000;}
           analogWrite(fanControlpin, fanSpeed);
-          Serial.printf("** Turned fan on with speed = %d%.\n",(int)(fanSpeed/10));
+          Serial.printf("** Turned fan on %d%.\n",(int)(fanSpeed/10));
         } else {//we're far from setpoint, use aggressive tuning parameters
            myPID.SetTunings(aggKp, aggKi, aggKd);
            myPID.Compute();
            fanSpeed=  map(Output, 0, 255, minSpeed, 1000);
            if(fanSpeed>1000){fanSpeed=1000;}
            analogWrite(fanControlpin, fanSpeed);
-           Serial.printf("** Turned fan on with speed = %d%.\n",(int)(fanSpeed/10));
+           Serial.printf("** Turned fan on %d%.\n",(int)(fanSpeed/10));
         } 
    } else {  // if the meat is at the pull temp, turn off fan, and notify that the food is done.
      fanSpeed=minSpeed;
@@ -219,7 +228,7 @@ void readTempSensors(){
       delay(100);
    probe_E=probe_E_Thermocouple.readCelsius(); 
       
-    tempWeightedAvg=(probe_A+probe_B)/2;
+    tempWeightedAvg=((probe_A+probe_B+probe_C+probe_D)/4)+45; //add 45 to compensate for outside of barrel being cooler than center
     probe_A_Last=(2*probe_A_Last+probe_A)/3;
     probe_B_Last=(2*probe_B_Last+probe_B)/3;
     probe_C_Last=(2*probe_C_Last+probe_C)/3;
