@@ -34,7 +34,9 @@ See some images of the project [here](https://trello.com/c/GKH84JZ9/7-uds-ugly-d
 - 1x 12V power supply
 - 1x 12V -> 3.3V DC-DC step down power regulator
 - 1x waterproof project box
-
+- 1.5 meters heat-resistant silicone tubing
+- 3 L-connectors for tubing
+- misc. resistors, wires, and jacks
 ![alt text](https://github.com/willblev/UDS_ATC/blob/master/img/atc.jpg "Automatic Temperature Controller")
 
 ![alt text](https://github.com/willblev/UDS_ATC/blob/master/img/atc_inside.jpg "ATC inside")
