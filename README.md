@@ -21,7 +21,7 @@ This project started out as a way to monitor and record the temperature of the s
 I use the Blynk mobile app to send the desired pit temp and pull temp to the ATC. It can also visualize things like the fan speed, a graph of the last few data points, etc.
 <img src="https://github.com/willblev/UDS_ATC/blob/master/img/blynk_app.png" height="600" />
 If you would like to clone this project, you can use the following QR code which will copy my Blynk interface which should automatically work with your ATC:
-<img src="https://github.com/willblev/UDS_ATC/blob/master/img/blynk_clone.jpg "Clone this Blynk project" height="400" />
+<img src="https://github.com/willblev/UDS_ATC/blob/master/img/blynk_clone.jpg" height="400" />
 It is pretty straight forward- you move the sliders left and right to set the pit/pull temp, and the Blynk app sends these changes to the ATC. The ATC updates the app with the current temperature of the pit, the temperature of the food, the fan speed, etc.
 
 ### The Ugly Drum Smoker
