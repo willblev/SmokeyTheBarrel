@@ -1,8 +1,8 @@
 # UDS_ATC
 ### Automatic temperature controller (ATC) for an ugly drum smoker (UDS)
 This ESP8266-based project is controllable via the Blynk smartphone app [over WiFi], reprogrammable OTA, uses 5 k-type thermocouple temperature probes which feed into a PID algorithm, and controls the speed of a 12v DC blower fan via PWM. So many 3 letter acronyms! It pushes the data to [Thingspeak](https://thingspeak.com/channels/164514) and automatically tweets from [@SmokeyTheBarrel](https://twitter.com/smokeyTheBarrel) when certain conditions are met.
-![alt text](https://github.com/willblev/UDS_ATC/blob/master/img/atc.jpg "Automatic Temperature Controller" | width=400)
-![alt text](https://github.com/willblev/UDS_ATC/blob/master/img/atc_inside.jpg "ATC inside" | width=400)
+![alt text](https://github.com/willblev/UDS_ATC/blob/master/img/atc.jpg | width=400)
+![alt text](https://github.com/willblev/UDS_ATC/blob/master/img/atc_inside.jpg | width=400)
 
 ### Materials for automatic temperature controller:
 - 1x ESP8266 12E module (I used the WeMos D1 mini)
