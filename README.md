@@ -1,6 +1,7 @@
 # UDS_ATC
 ### Automatic temperature controller (ATC) for an ugly drum smoker (UDS)
 This ESP8266-based project is controllable via the Blynk smartphone app [over WiFi], reprogrammable OTA, uses 5 k-type thermocouple temperature probes which feed into a PID algorithm, and controls the speed of a 12v DC blower fan via PWM. So many 3 letter acronyms! It pushes the data to [Thingspeak](https://thingspeak.com/channels/164514) and automatically tweets from [@SmokeyTheBarrel](https://twitter.com/smokeyTheBarrel) when certain conditions are met.
+
 <img src="https://github.com/willblev/UDS_ATC/blob/master/img/atc.jpg" height="600" />
 <img src="https://github.com/willblev/UDS_ATC/blob/master/img/atc_inside.jpg" height="400" />
 
@@ -19,14 +20,20 @@ This project started out as a way to monitor and record the temperature of the s
 
 ### The Blynk app (how to control the ATC)
 I use the Blynk mobile app to send the desired pit temp and pull temp to the ATC. It can also visualize things like the fan speed, a graph of the last few data points, etc.
+
 <img src="https://github.com/willblev/UDS_ATC/blob/master/img/blynk_app.png" height="600" />
+
 If you would like to clone this project, you can use the following QR code which will copy my Blynk interface which should automatically work with your ATC:
+
 <img src="https://github.com/willblev/UDS_ATC/blob/master/img/blynk_clone.jpg" height="400" />
+
 It is pretty straight forward- you move the sliders left and right to set the pit/pull temp, and the Blynk app sends these changes to the ATC. The ATC updates the app with the current temperature of the pit, the temperature of the food, the fan speed, etc.
 
 ### The Ugly Drum Smoker
 I cleaned out the inside of the barrel, then I cut off the lid, stripped the paint, and re-painted it with heat-resistant paint. I used six brass 3/4" pipe fittings to provide air flow- three on the bottom as intakes and thee as vents on the top. I used a large steel paellera as a lid, and it rests on the three vents. I also added handles and a modular rack system to adjust the height of the grills inside of the smoker. 
+
 <img src="https://github.com/willblev/UDS_ATC/blob/master/img/UDS.jpg "Ugly Drum Smoker" height="600" />
+
 Find more info and pics about the UDS project [here.](https://trello.com/c/GKH84JZ9/7-uds-ugly-drum-smoker-200l-steel-barrel-bbq-smoker)
 
 ### Materials for barrel:
