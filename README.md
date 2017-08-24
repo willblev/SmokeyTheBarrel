@@ -32,7 +32,7 @@ It is pretty straight forward- you move the sliders left and right to set the pi
 ### The Ugly Drum Smoker
 I cleaned out the inside of the barrel, then I cut off the lid, stripped the paint, and re-painted it with heat-resistant paint. I used six brass 3/4" pipe fittings to provide air flow- three on the bottom as intakes and thee as vents on the top. I used a large steel paellera as a lid, and it rests on the three vents. I also added handles and a modular rack system to adjust the height of the grills inside of the smoker. 
 
-<img src="https://github.com/willblev/UDS_ATC/blob/master/img/UDS.jpg "Ugly Drum Smoker" height="600" />
+<img src="https://github.com/willblev/UDS_ATC/blob/master/img/UDS.jpg" height="600" />
 
 Find more info and pics about the UDS project [here.](https://trello.com/c/GKH84JZ9/7-uds-ugly-drum-smoker-200l-steel-barrel-bbq-smoker)
 
