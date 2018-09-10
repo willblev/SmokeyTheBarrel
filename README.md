@@ -7,7 +7,7 @@ This ESP8266-based project is controllable via the Blynk smartphone app [over Wi
 
 ### Materials for automatic temperature controller:
 - 1x ESP8266 12E module (I used the WeMos D1 mini)
-- 5x K type thermocouples & amplifier circuits http://www.ebay.com/itm/181440455042?_trksid=p2060353.m2749.l2649&ssPageName
+- 5x K type thermocouples & amplifier circuits
 - 1x 12V DC blower fan with PWM speed control (4 wires)
 - 1x 12V power supply
 - 1x 12V -> 3.3V DC-DC step down power regulator
@@ -50,9 +50,9 @@ Find more info and pics about the UDS project [here.](https://trello.com/c/GKH84
 - Heat-resistant paint: http://www.leroymerlin.es/fp/298473/esmalte-anticalorico-titan-anticalorico-negro
 - 2-3x 45-50 cm diameter circular grill trays
 
-When I picked up the barrel it still had some residue of the previous contents, so I did about 5 rounds of washing it out with ample soap and water. I then let it dry, and after making sure there were no flammable vapors remaining in the barrel, I cut off the lid with an angle grinder. Keep the lid if you want to use it as a heat/smoke distibution plate; you can drill a bunch of 1" holes to let the air flow through it better. 
+When I picked up the barrel it still had some residue of the previous contents, so I did about 5 rounds of washing it out with ample soap and water. I then let it dry, and after making sure there were no flammable vapors remaining in the barrel, I cut off the lid with an angle grinder. Keep the lid if you want to use it as a heat/smoke diffuser plate; you can drill a bunch of 1" holes to let the air flow through it better. 
 
-I drilled the three holes for the air intakes about 2" from the base of the barrel (120 degrees apart), and three more for vents near the top. I filled the barrel with some clean pallet wood, used an extractor fan to blow air into the intakes at the base, and burned wood until the barrel glowed red hot for 15~25 minutes. This may not actually get rid of all of the leftover carcinogenic chemicals in the remaining residue and paint, but I felt that it was good enough. it took a lot of elbow grease to get the charred paint off of the outside of the barrel! I used a steel wire brush and it took me ~3 hours. I drilled the remaining holes to mount the interior rack system, the handles, the temperature probes, etc. After cleaning the surface, I used a heat-resistant paint to coat the outside of the barrel. I did another few burns (at a lower temperature) to wear it in a bit, oiled up the inside, and started smoking!
+I drilled the three holes for the air intakes about 2" from the base of the barrel (120 degrees apart), and three more for vents near the top. I filled the barrel with some wood, used an extractor fan to blow air into the intakes at the base, and burned until the barrel glowed red hot for 15~25 minutes. This may not actually get rid of all of the leftover carcinogenic chemicals in the remaining residue and paint, but I felt that it was good enough. it took *a lot of elbow grease* to get the charred paint off of the outside of the barrel! I used a steel wire brush and it took me ~3 hours. I drilled the remaining holes to mount the interior rack system, the handles, the temperature probes, etc. After cleaning the surface, I used a heat-resistant paint to coat the outside of the barrel. I did another few burns (at a lower temperature) to wear it in a bit, oiled up the inside, and started smoking!
 
 ### Materials for the coal basket:
 - 1x expanded steel to form basket: http://www.leroymerlin.es/fp/13850305/chapa-de-acero-bruto-malla-mediano?pathFamilaFicha=420504
