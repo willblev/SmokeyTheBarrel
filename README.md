@@ -12,11 +12,10 @@ This ESP8266-based project is controllable via the Blynk smartphone app [over Wi
 - 1x 12V power supply
 - 1x 12V -> 3.3V DC-DC step down power regulator
 - 1x waterproof project box
-- 1.5 meters heat-resistant silicone tubing
-- 3 L-connectors for tubing
+- ~1 meter heat-resistant silicone tubing
 - misc. resistors, wires, and jacks
 
-This project started out as a way to monitor and record the temperature of the smoker and the food, but I've added more and more features (reads as: "broken the code and had to start again") over time. First I got my ESP8266 to work with the temperature probes using the *max6675* library, and was able to post the readings to Thingspeak, doing all this periodically with the *SimpleTimer* library. I then integrated the 12v DC blower fan, which I was able to control with PWM- I set *analogWriteFreq(30000)* as the signal that the fan expected was around 28k-30k. To keep the temperature from oscillating up and down, I integrated the *PID_v1* library. Finally I added OTA capability so that I don't have to take the whole project apart every time I want to tweak the code. 
+This project started out as a way to monitor and record the temperature of the smoker and the food, but I've added more and more features (reads as: "broken the code and had to start again") over time. First I got my ESP8266 to work with the temperature probes using the *max6675* library, and was able to post the readings to Thingspeak, doing all this periodically with the *SimpleTimer* library. I then integrated the 12v DC blower fan, which I was able to control with PWM- I set *analogWriteFreq(30000)* as the signal that my fan expected according to its specs was around 28k-30k. To keep the temperature from oscillating up and down too much, I integrated the *PID_v1* library. Finally I added OTA update capability so that I don't have to take the whole project apart every time I want to tweak the code. 
 
 ### The Blynk app (how to control the ATC)
 I use the Blynk mobile app to send the desired pit temp and pull temp to the ATC. It can also visualize things like the fan speed, a graph of the last few data points, etc.
