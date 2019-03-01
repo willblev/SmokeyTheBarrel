@@ -62,5 +62,8 @@ I stitched together the basket with the expanded steel using the stainless steel
 
 
 
+**March 1st 2019 Update**: I've been using SmokeyTheBarrel for a few years now and it's been loads of fun! Having the ATC and meat temperature probes really takes the guesswork out of estimating cook times. Unfortunately, I may have to retire Smokey (sell or give away) in May if we move to an apartment without a terrace. We've had a good run though... plenty of ribs, pulled pork, smoked sausages, turkey legs, and many more good memories. Here's to you, Smokey!
 
+
+<img src="https://github.com/willblev/UDS_ATC/blob/master/img/smokey_ribs.jpg" width="800" />
 
